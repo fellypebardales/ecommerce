@@ -30,16 +30,9 @@ class Page {
 
 		$this->tpl = new Tpl();
 
-		if ($this->options['data']) $this->setData($this->options['data']);
+		$this->setData($this->options['data']);
 
-		if ($this->options['header'] === true) $this->tpl->draw("header", false);
-
-	}
-
-	public function __destruct()
-	{
-
-		if ($this->options['footer'] === true) $this->tpl->draw("footer", false);
+		if ($this->options['header'] === true) $this->tpl->draw("header");
 
 	}
 
@@ -61,6 +54,13 @@ class Page {
 		$this->setData($data);
 
 		return $this->tpl->draw($tplname, $returnHTML);
+
+	}
+
+	public function __destruct()
+	{
+
+		if ($this->options['footer'] === true) $this->tpl->draw("footer");
 
 	}
 

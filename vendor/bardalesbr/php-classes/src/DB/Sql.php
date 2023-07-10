@@ -51,6 +51,19 @@ class Sql {
 
 	}
 
+	public function create($rawQuery, $params = array())
+	{
+
+		$stmt = $this->conn->prepare($rawQuery);
+
+		$this->setParams($stmt, $params);
+
+		$stmt->execute();
+
+		return $this->conn->lastInsertId();
+	}
+
+
 	public function select($rawQuery, $params = array()):array
 	{
 

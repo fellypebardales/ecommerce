@@ -56,5 +56,31 @@ class User extends Model {
     public static function logout() {
         $_SESSION[User::SESSION] = NULL;
     }
+
+    public static function listAll() {
+        $sql = new Sql();
+
+        return $sql->select("SELECT * FROM tb_users a INNER JOIN tb_persons b USING(idperson) ORDER BY b.desperson");
+    }
+
+    public static function createPerson($desperson, $desemail, $nrphone) {
+        $sql = new Sql();
+        return $sql->create("INSERT INTO tb_persons (desperson, desemail, nrphone) VALUES(:desperson, :desemail, :nrphone)", array(
+            "desperson"=> $desperson,
+            "desemail"=> $desemail,
+            "nrphone"=> $nrphone,
+        ));
+    }
+
+    public static function createUser($idperson, $deslogin, $despassword, $inadmin) {
+        $sql = new Sql();
+        return $sql->create("INSERT INTO tb_users (idperson, deslogin, despassword, inadmin) VALUES(:idperson, :deslogin, :despassword, :inadmin)", array(
+            "idperson"=> $idperson,
+            "deslogin"=> $deslogin,
+            "despassword"=> $despassword,
+            "inadmin"=> $inadmin
+        ));
+    }
+
 }
 ?>
